@@ -37,7 +37,9 @@ export default withAuth(
   config({
     db: {
       adapter: 'prisma_postgresql',
-      url: process.env.DATABASE_URL || 'postgres://postgres:Supabase123!@db.rucbijxypjdbhhfgqwae.supabase.co:5432/postgres',
+      url:
+        process.env.DATABASE_URL ||
+        'postgres://postgres:Supabase123!@db.rucbijxypjdbhhfgqwae.supabase.co:5432/postgres',
     },
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
