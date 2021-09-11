@@ -9,7 +9,7 @@ export default function Home(props) {
 }
 
 export const getServerSideProps = async (ctx) => {
-  let DATABASE_URL = process.env.DATABASE_URL;
+  // let DATABASE_URL = process.env.DATABASE_URL;
   return {
     props: {
       DATABASE_URL,
