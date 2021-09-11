@@ -47,10 +47,13 @@ services:
     image: next
     container_name: next
     build: ./next
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SESSION_SECRET: ${SESSION_SECRET}
     ports:
-      - 3000
+      - 3000:3000
     restart: always
     depends_on:
       - reverseproxy
@@ -58,10 +61,13 @@ services:
     image: keystone
     container_name: keystone
     build: ./keystone
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SESSION_SECRET: ${SESSION_SECRET}
     ports:
-      - 3000
+      - 5000:3000
     restart: always
     depends_on:
       - reverseproxy
