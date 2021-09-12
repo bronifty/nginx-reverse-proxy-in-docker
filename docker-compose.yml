@@ -1,73 +1,30 @@
 version: '3.9'
 services:
-  reverseproxy:
-    image: reverseproxy_image
-    container_name: reverseproxy_container
-    build: .
+  proxy:
+    image: proxy
+    container_name: proxy
+    build: ./proxy
     ports:
       - 80:80
     restart: always
-  nginx:
-    image: nginx_image
-    container_name: nginx_container
-    build: ./nginx
-    ports:
-      - 80
-    restart: always
-    depends_on:
-      - reverseproxy
-  apache:
-    image: apache_image
-    container_name: apache_container
-    build: ./apache
-    ports:
-      - 80
-    restart: always
-    depends_on:
-      - reverseproxy
-  node:
-    image: node_image
-    container_name: node_container
-    build: ./node
-    ports:
-      - 3000
-    restart: always
-    depends_on:
-      - reverseproxy
-  node2:
-    image: node2_image
-    container_name: node2_container
-    build: ./node2
-    ports:
-      - 3000
-    restart: always
-    depends_on:
-      - reverseproxy
   next:
     image: next
     container_name: next
     build: ./next
-    # env_file:
-    #   - .env
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
-      SESSION_SECRET: ${SESSION_SECRET}
     ports:
-      - 3000:3000
+      - 3000
     restart: always
     depends_on:
-      - reverseproxy
+      - proxy
   keystone:
     image: keystone
     container_name: keystone
     build: ./keystone
-    # env_file:
-    #   - .env
     environment:
       DATABASE_URL: ${DATABASE_URL}
       SESSION_SECRET: ${SESSION_SECRET}
     ports:
-      - 5000:3000
+      - 3000
     restart: always
     depends_on:
-      - reverseproxy
+      - proxy
