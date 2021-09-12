@@ -28,7 +28,7 @@ const { withAuth } = createAuth({
 const session = statelessSessions({
   secret: 'ABCDEFGH1234567887654321HGFEDCBA',
   maxAge: 60 * 60 * 24,
-  secure: false,
+  secure: true,
   path: '/',
   domain: 'localhost',
   sameSite: 'lax',
@@ -47,7 +47,7 @@ export default withAuth(
     session,
     server: {
       extendExpressApp: (app) => {
-        app.set('trust proxy', 1);
+        app.set('trust proxy', true);
       },
     },
   })
