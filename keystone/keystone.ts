@@ -26,8 +26,12 @@ const { withAuth } = createAuth({
 // This session object will be made available on the context object used in hooks, access-control,
 // resolvers, etc.
 const session = statelessSessions({
-  // The session secret is used to encrypt cookie data (should be an environment variable)
-  secret: '-- EXAMPLE COOKIE SECRET; CHANGE ME --',
+  secret: 'ABCDEFGH1234567887654321HGFEDCBA',
+  maxAge: 60 * 60 * 24,
+  secure: false,
+  path: '/',
+  domain: 'localhost',
+  sameSite: 'lax',
 });
 
 // We wrap our config using the withAuth function. This will inject all
@@ -42,8 +46,8 @@ export default withAuth(
     // We add our session configuration to the system here.
     session,
     server: {
-      configureExpress: (app) => {
-        app.set('trust proxy', true);
+      extendExpressApp: (app) => {
+        app.set('trust proxy', 1);
       },
     },
   })
