@@ -41,5 +41,10 @@ export default withAuth(
     lists,
     // We add our session configuration to the system here.
     session,
+    server: {
+      configureExpress: (app) => {
+        app.set('trust proxy', true);
+      },
+    },
   })
 );
